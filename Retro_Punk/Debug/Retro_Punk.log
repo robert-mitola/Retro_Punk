@@ -1,0 +1,4 @@
+﻿  Game.cpp
+d:\sfml\retro_punk\retro_punk\game.cpp(10): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Retro_Punk.vcxproj -> D:\SFML\Retro_Punk\Debug\Retro_Punk.exe
+  Retro_Punk.vcxproj -> D:\SFML\Retro_Punk\Debug\Retro_Punk.pdb (Partial PDB)
