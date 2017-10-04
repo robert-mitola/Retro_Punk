@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player.h"
+#include <vector>
 
 class World {
 public:
@@ -8,6 +9,7 @@ public:
 	~World();
 
 	int GetBlockSize();
+	std::vector<std::vector<int>> GetGrid();
 
 	void Update(Player& l_player);
 	void Render(sf::RenderWindow& l_window);
@@ -18,5 +20,6 @@ private:
 	int m_blockSize;
 
 	sf::CircleShape m_appleShape;
-	sf::RectangleShape m_bounds[4];
+	sf::Vector2i m_gridSize;
+	std::vector<std::vector<int>> m_grid;
 };

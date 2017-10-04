@@ -25,11 +25,11 @@ public:
 	void Reset(); // reset the player to starting position
 
 	void Move(); // movement method
-	void Tick(); // update method
+	void Tick(const std::vector<std::vector<int>>& l_grid); // update method
 	void Render(sf::RenderWindow& l_window);
 
 private:
-	void CheckCollision(); // checking for collisions
+	void CheckCollision(const sf::Vector2i& l_previousPosition, const std::vector<std::vector<int>>& l_grid); // checking for collisions
 
 	sf::Vector2i m_position; 
 	int m_size; //size of the graphics
