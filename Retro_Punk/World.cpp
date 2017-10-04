@@ -3,24 +3,24 @@
 World::World(sf::Vector2u l_windSize) {
 	m_blockSize = 16;
 
+	m_gridSize = sf::Vector2i(15, 10);
+	m_grid = {
+		{ 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1 },
+		{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+		{ 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1 },
+		{ 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0 },
+		{ 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 }
+	};
+
 	m_windowSize = l_windSize;
 	m_appleShape.setFillColor(sf::Color::Red);
 	m_appleShape.setRadius(m_blockSize / 2);
 
-	for (int i = 0; i < 4; ++i) {
-		m_bounds[i].setFillColor(sf::Color(150, 0, 0));
-		if (!((i + 1) % 2)) {
-			m_bounds[i].setSize(sf::Vector2f(m_windowSize.x, m_blockSize));
-		} else {
-			m_bounds[i].setSize(sf::Vector2f(m_blockSize, m_windowSize.y));
-		}
-		if (i < 2) {
-			m_bounds[i].setPosition(0, 0);
-		} else {
-			m_bounds[i].setOrigin(m_bounds[i].getSize());
-			m_bounds[i].setPosition(sf::Vector2f(m_windowSize));
-		}
-	}
 }
 
 World::~World() {}
@@ -41,12 +41,26 @@ void World::Update(Player& l_player) {
 }
 
 void World::Render(sf::RenderWindow& l_window) {
-	for (int i = 0; i < 4; ++i) {
-		l_window.draw(m_bounds[i]);
+	for (int i = 0; i < m_gridSize.x; ++i) {
+		for (int j = 0; j < m_gridSize.y; ++j) {
+			
+			if (m_grid[j][i] == 1) {
+				sf::RectangleShape block;
+				block.setPosition(i * m_blockSize, j * m_blockSize);
+				block.setSize(sf::Vector2f(m_blockSize, m_blockSize));
+				block.setFillColor(sf::Color::Blue);
+				l_window.draw(block);
+			}
+		}
 	}
+
 	l_window.draw(m_appleShape);
 }
 
 int World::GetBlockSize() {
 	return m_blockSize;
+}
+
+std::vector<std::vector<int>> World::GetGrid() {
+	return m_grid;
 }

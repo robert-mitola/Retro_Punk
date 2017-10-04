@@ -7,8 +7,8 @@ Game::Game() : m_window("Chapter 2", sf::Vector2u(800, 600)), m_player(m_world.G
 	m_increment = sf::Vector2i(400, 400);
 
 	m_textbox.Setup(5, 14, 350, sf::Vector2f(255, 0));
-	srand(time(nullptr));
-	m_textbox.Add("Seeded random number generator with: " + std::to_string(time(NULL)));
+	m_textbox.Add("Welcome to Retro Punk!");
+	m_textbox.Add("By Rob Mitola");
 }
 
 Game::~Game() {
@@ -35,7 +35,7 @@ void Game::Update() {
 	float frametime = 1.0f / m_player.GetSpeed(); // (player speed) per second
 
 	if (m_elapsed.asSeconds() >= frametime) {
-		m_player.Tick();
+		m_player.Tick(m_world.GetGrid());
 		m_world.Update(m_player);
 		m_elapsed -= sf::seconds(frametime);
 		if (m_player.HasLost()) {
